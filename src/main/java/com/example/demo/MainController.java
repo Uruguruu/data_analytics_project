@@ -4,7 +4,11 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.*;
 
 @RestController
-public class controler_hello {
+public class MainController {
+	@GetMapping("/hello")
+	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
+		return String.format("Hello "+name+"!");
+	}
 	@GetMapping("/products")
 	public String getProducts() {
 		StringBuilder result = new StringBuilder();
