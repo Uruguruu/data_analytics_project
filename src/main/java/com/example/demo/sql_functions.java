@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import org.json.JSONObject;
+import org.springframework.boot.SpringApplication;
 
 import java.sql.*;
 
@@ -10,7 +11,7 @@ public class sql_functions {
     //_________________________________________________________________________________________________________________________________________
     // all function for the shopping list
     //_________________________________________________________________________________________________________________________________________
-    public String get_list_of_shopping_list() {
+    public static String get_list_of_shopping_list() {
         JSONObject results = new JSONObject();
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
@@ -20,7 +21,6 @@ public class sql_functions {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM shopping_list");
                 while (rs.next()) {
                     results.put("ID", rs.getInt("ID"));
-                    results.put("Shop", rs.getString("shop"));
                     results.put("Name", rs.getString("name"));
                 }
             }
@@ -29,7 +29,7 @@ public class sql_functions {
         return results.toString();
     }
 
-    public String create_shopping_list(String name) {
+    public static String create_shopping_list(String name) {
         String feedback = "delay_error";
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
@@ -48,7 +48,7 @@ public class sql_functions {
         return feedback;
     }
 
-    public String delete_shopping_list(Integer ID) {
+    public static String delete_shopping_list(Integer ID) {
         String feedback = "delay_error";
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
@@ -72,7 +72,7 @@ public class sql_functions {
     //_________________________________________________________________________________________________________________________________________
     // all function for the products
     //_________________________________________________________________________________________________________________________________________
-    public String getProducts_of_shopping_list(Integer id_list) {
+    public static String getProducts_of_shopping_list(Integer id_list) {
         JSONObject results = new JSONObject();
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
@@ -90,12 +90,12 @@ public class sql_functions {
         }
         return results.toString();
     }
-    public String create_product(String name, Integer ID_of_shopping_list, Integer Amount) {
+    public static String create_product(String name, Integer ID_of_shopping_list, Integer Amount) {
         String feedback = "delay_error";
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
             // SELECT-Befehl ausführen
-            String sql = "INSERT INTO shopping_list(name, FK_shopping_list, Anzahl) VALUES(?, ?, ?)";
+            String sql = "INSERT INTO products(name, FK_shopping_list, Anzahl) VALUES(?, ?, ?)";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 // Werte für die Platzhalter setzen
                 pstmt.setString(1, name);
@@ -106,12 +106,13 @@ public class sql_functions {
                 feedback = "success";
             }
         } catch (SQLException e) {
+            System.out.println(e);
             feedback="error";
         }
         return feedback;
     }
 
-    public String delete_product(Integer ID) {
+    public static String delete_product(Integer ID) {
         String feedback = "delay_error";
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
@@ -130,12 +131,12 @@ public class sql_functions {
         return feedback;
     }
 
-    public String update_product(String name, Integer ID_of_product, Integer Amount) {
+    public static String update_product(String name, Integer ID_of_product, Integer Amount) {
         String feedback = "delay_error";
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
             // SELECT-Befehl ausführen
-            String sql = "UPDATE products SET Name = ?, Anzahl = ?, WHERE ID = ?; ";
+            String sql = "UPDATE products SET Name = ?, Anzahl = ? WHERE ID = ?; ";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 // Werte für die Platzhalter setzen
                 pstmt.setString(1, name);
@@ -146,9 +147,40 @@ public class sql_functions {
                 feedback = "success";
             }
         } catch (SQLException e) {
+            System.out.println(e);
             feedback="error";
         }
         return feedback;
+    }
+
+    //_________________________________________________________________________________________________________________________________________
+    // code for temporary tests. Will be removed before final code
+    //_________________________________________________________________________________________________________________________________________
+
+    public static void main(String[] args)
+    {
+        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
+            // SELECT-Befehl ausführen
+
+            try (Statement stmt = conn.createStatement()) {
+                stmt.executeUpdate("DELETE FROM products");
+                stmt.executeUpdate("DELETE FROM shopping_list");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        create_shopping_list("Migros einkauf");
+        System.out.println(get_list_of_shopping_list());
+        System.out.println(getProducts_of_shopping_list(1));
+        System.out.println(create_product("Milllch", 1, 5));
+        System.out.println(getProducts_of_shopping_list(1));
+        System.out.println(update_product("Millch", 1, 1000));
+        System.out.println(getProducts_of_shopping_list(1));
+        System.out.println(create_product("Kuh", 1, 5));
+        System.out.println(delete_product(1));
+        System.out.println(getProducts_of_shopping_list(1));
+        System.out.println(delete_shopping_list(1));
+
     }
 
 }
