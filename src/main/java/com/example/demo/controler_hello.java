@@ -6,7 +6,7 @@ import java.sql.*;
 @RestController
 public class controler_hello {
 
-	@GetMapping("/hello")
+	@GetMapping("/")
 	public String hello() {
 		return "Hello World";
 	}
