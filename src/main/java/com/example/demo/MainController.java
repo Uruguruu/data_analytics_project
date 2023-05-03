@@ -1,4 +1,5 @@
 package com.example.demo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +12,23 @@ public class MainController {
 	 *	2. If no ID is given so the parameter is undefined or null all the ID's of the existing List are getting displayed.
 	 */
 	@GetMapping("/products")
-	public String getList() {
-		return "Hello GET";
+	public String getList(@RequestParam(value = "id", required = false) String idParam) {
+		if (StringUtils.isBlank(idParam)) {
+			/* Handle the case where the id parameter is not present */
+			return "Niel ID function";
+		} else {
+			try {
+				int id = Integer.parseInt(idParam);
+				/* Niel Funktion call */
+				return "Niel Function " + id;
+			} catch (NumberFormatException e) {
+				/* Handle the case where the id parameter is not a number */
+				return "Invalid ID: " + idParam;
+			}
+		}
 	}
+
+
 
 	/**
 	 *	Here you can add a List, and It will return the List ID.
