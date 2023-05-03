@@ -135,12 +135,12 @@ public class sql_functions {
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
             // SELECT-Befehl ausführen
-            String sql = "INSERT INTO shopping_list(name, , Anzahl) VALUES(?, ?, ?)";
+            String sql = "UPDATE products SET Name = ?, Anzahl = ?, WHERE ID = ?; ";
             try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
                 // Werte für die Platzhalter setzen
                 pstmt.setString(1, name);
-                pstmt.setInt(2, ID_of_product);
-                pstmt.setInt(3, Amount);
+                pstmt.setInt(2, Amount);
+                pstmt.setInt(3, ID_of_product);
                 // INSERT-Befehl ausführen
                 pstmt.executeUpdate();
                 feedback = "success";
@@ -150,6 +150,5 @@ public class sql_functions {
         }
         return feedback;
     }
-
 
 }
