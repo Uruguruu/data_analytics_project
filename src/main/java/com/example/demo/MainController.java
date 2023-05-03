@@ -5,9 +5,9 @@ import java.sql.*;
 
 @RestController
 public class MainController {
-	@GetMapping("/hello")
-	public String hello(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return String.format("Hello "+name+"!");
+	@GetMapping("/check/hallo")
+	public String hello() {
+		return "running...";
 	}
 	@GetMapping("/products")
 	public String getProducts() {
