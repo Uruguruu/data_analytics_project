@@ -24,7 +24,7 @@ Displays all products that are in stock.
 
 #### DELETE
 
-parameters: none
+parameters: "List ID" (?id={listID})
 
 Method: DELETE
 
