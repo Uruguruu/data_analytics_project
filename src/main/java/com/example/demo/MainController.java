@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
+import static com.example.demo.sql_functions.getProducts_of_shopping_list;
+import static com.example.demo.sql_functions.get_list_of_shopping_list;
+
 @RestController
 public class MainController {
 	/**
@@ -15,12 +18,12 @@ public class MainController {
 	public String getList(@RequestParam(value = "id", required = false) String idParam) {
 		if (StringUtils.isBlank(idParam)) {
 			/* Handle the case where the id parameter is not present */
-			return "Niel ID function";
+			return get_list_of_shopping_list();
 		} else {
 			try {
 				int id = Integer.parseInt(idParam);
 				/* Niel Funktion call */
-				return "Niel Function " + id;
+				return getProducts_of_shopping_list(id);
 			} catch (NumberFormatException e) {
 				/* Handle the case where the id parameter is not a number */
 				return "Invalid ID: " + idParam;
