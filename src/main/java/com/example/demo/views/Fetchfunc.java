@@ -1,19 +1,13 @@
 package com.example.demo.views;
 
-import jakarta.servlet.http.HttpServletRequest;
-
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class ProductViewFetchFunc {
-    private String[][] getListItems() {
-        HttpServletRequest request = ...
-        String id = request.getParameter("id");
-        bigFetch("/products","id="+);
-        return new String[][]{{"Volvo", "BMW", "Ford", "Mazda"}};
-    }
-    private String bigFetch(String endpoint, String params, String requestBody, String requestMethod) throws IOException {
+
+public class Fetchfunc {
+
+    public static String generalFetch(String endpoint, String params, String requestBody, String requestMethod) throws IOException {
         URL some_url = new URL("http://localhost:8080"+endpoint+"?"+params);
         HttpURLConnection con = (HttpURLConnection) some_url.openConnection();
         con.setRequestMethod(requestMethod);
@@ -39,5 +33,4 @@ public class ProductViewFetchFunc {
 
         return response.toString();
     }
-
 }
