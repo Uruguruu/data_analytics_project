@@ -10,7 +10,7 @@ public class ProductViewFetchFunc {
     private String[][] getListItems() {
         HttpServletRequest request = ...
         String id = request.getParameter("id");
-        bigFetch("/products","id="+)
+        bigFetch("/products","id="+);
         return new String[][]{{"Volvo", "BMW", "Ford", "Mazda"}};
     }
     private String bigFetch(String endpoint, String params, String requestBody, String requestMethod) throws IOException {
