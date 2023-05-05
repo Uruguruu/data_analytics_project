@@ -6,7 +6,9 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.router.Route;
+import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,14 +40,38 @@ public class ProductView extends Div {
     }
 
     private List<Item> getItems() {
+        ProductViewFunc productViewFunc = new ProductViewFunc();
         List<Item> items = new ArrayList<>();
-        items.add(new Item("Milk", 2));
-        items.add(new Item("Bread", 1));
-        items.add(new Item("Eggs", 12));
-        items.add(new Item("Apples", 5));
-        items.add(new Item("Chicken breasts", 4));
+        try {
+            String[][] listItems = productViewFunc.getListItems();
+            System.out.println("Number of list items: " + listItems.length);
+            // Do something with the listItems array
+            if (listItems == null) {
+                // Handle the case where the query returns no results
+                System.out.println("No items found");
+                return items;
+            }
+            for (String[] listItem : listItems) {
+                //String itemId = listItem[2]; // Get the ID value
+                String itemName = listItem[0]; // Get the name value
+                //String itemAmount = listItem[1]; // Get the Anzahl value
+                //System.out.println(itemId);
+                System.out.println(itemName);
+                System.out.println("----------------");
+                //System.out.println(itemAmount);
+            }
+        } catch (IOException e) {
+            // Handle the exception
+            System.err.println("An error occurred while getting the list items: " + e.getMessage());
+            e.printStackTrace();
+            // You may want to throw a custom exception or return a default value here
+        }
+
         return items;
     }
+
+
+
 
     private static class Item {
 
