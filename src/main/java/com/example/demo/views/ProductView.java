@@ -7,8 +7,11 @@ import com.vaadin.flow.component.menubar.MenuBar;
 import com.vaadin.flow.component.menubar.MenuBarVariant;
 import com.vaadin.flow.router.Route;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.example.demo.views.Fetchfunc.generalFetch;
 
 @Route("list")
 public class ProductView extends Div {
@@ -30,6 +33,14 @@ public class ProductView extends Div {
 
         GridContextMenu<Item> menu = grid.addContextMenu();
         menu.addItem("Edit", event -> {
+            System.out.println(event);
+
+            try {
+                String response = generalFetch("/product", "d", "gd", "PUT");
+                // Verarbeite die Antwort
+            } catch (IOException e) {
+                // Behandle die IOException
+            }
         });
         menu.addItem("Delete", event -> {
         });
