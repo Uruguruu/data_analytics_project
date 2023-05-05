@@ -58,8 +58,8 @@ public class MainController {
 	 *	Here you can edit a product from a List.
 	 */
 	@PutMapping("/product")
-		public String editProduct(@RequestParam(value = "product_id", required = true) Integer product_id, @RequestParam(value = "product_name", required = true) String product_name, @RequestParam(value = "amount", required = true) Integer amount) {
-			return update_product(product_name,product_id, amount);
+		public String editProduct(@RequestBody ProductForm productForm) {
+			return update_product(productForm.getProductname(), productForm.get_product_id(), productForm.getAmount());
 	}
 	/**
 	 *	Here you can delete a product from a List.

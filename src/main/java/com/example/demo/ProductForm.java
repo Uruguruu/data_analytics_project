@@ -5,6 +5,10 @@ public class ProductForm {
     private Integer idOfShoppingList;
     private Integer amount;
 
+    private  Integer id_product;
+
+    public  Integer get_product_id() {return id_product;}
+
     public String getProductname() {
         return name;
     }
