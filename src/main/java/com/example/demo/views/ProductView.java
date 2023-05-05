@@ -41,6 +41,13 @@ public class ProductView extends Div {
         List<Item> items = new ArrayList<>();
         items.add(new Item("Milk", 2));
         items.add(new Item("Bread", 1));
+        items.add(new Item("Bread", 1));
+        items.add(new Item("Bread", 1));
+        items.add(new Item("Bread", 1));
+        items.add(new Item("Bread", 1));
+        items.add(new Item("Bread", 1));
+        items.add(new Item("Bread", 1));
+
         items.add(new Item("Eggs", 12));
         items.add(new Item("Apples", 5));
         items.add(new Item("Chicken breasts", 4));
