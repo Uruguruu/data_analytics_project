@@ -10,7 +10,9 @@ import com.vaadin.flow.router.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("products")
+import com.example.demo.views.ProductViewFetchFunc;
+
+@Route("list")
 public class ProductView extends Div {
 
     public ProductView() {
@@ -41,22 +43,15 @@ public class ProductView extends Div {
         List<Item> items = new ArrayList<>();
         items.add(new Item("Milk", 2));
         items.add(new Item("Bread", 1));
-        items.add(new Item("Bread", 1));
-        items.add(new Item("Bread", 1));
-        items.add(new Item("Bread", 1));
-        items.add(new Item("Bread", 1));
-        items.add(new Item("Bread", 1));
-        items.add(new Item("Bread", 1));
-
         items.add(new Item("Eggs", 12));
         items.add(new Item("Apples", 5));
         items.add(new Item("Chicken breasts", 4));
         return items;
     }
 
-    private class Item {
+    private static class Item {
 
-        private String name;
+        private final String name;
         private int quantity;
 
         Item(String name, int quantity) {
