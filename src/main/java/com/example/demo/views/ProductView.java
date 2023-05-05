@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.example.demo.views.Fetchfunc.generalFetch;
+
 @Route("list")
 public class ProductView extends Div {
 
@@ -32,6 +34,14 @@ public class ProductView extends Div {
 
         GridContextMenu<Item> menu = grid.addContextMenu();
         menu.addItem("Edit", event -> {
+            System.out.println(event);
+
+            try {
+                String response = generalFetch("/product", "d", "gd", "PUT");
+                // Verarbeite die Antwort
+            } catch (IOException e) {
+                // Behandle die IOException
+            }
         });
         menu.addItem("Delete", event -> {
         });
