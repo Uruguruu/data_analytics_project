@@ -10,6 +10,8 @@ import com.vaadin.flow.router.Route;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.demo.views.ProductViewFetchFunc;
+
 @Route("list")
 public class ProductView extends Div {
 

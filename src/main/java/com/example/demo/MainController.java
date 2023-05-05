@@ -19,9 +19,8 @@ public class MainController {
 			return get_list_of_shopping_list();
 		} else {
 			try {
-				int id = Integer.parseInt(idParam);
-				/* Niel Funktion call */
-				return getProducts_of_shopping_list(id);
+				/* getProducts_of_shopping_list call for getting specific list */
+				return getProducts_of_shopping_list(Integer.parseInt(idParam)); // getProducts_of_shopping_list expects integer that's why parseInt
 			} catch (NumberFormatException e) {
 				/* Handle the case where the id parameter is not a number */
 				return "Invalid ID: " + idParam;
