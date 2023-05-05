@@ -152,35 +152,4 @@ public class sql_functions {
         }
         return feedback;
     }
-
-    //_________________________________________________________________________________________________________________________________________
-    // code for temporary tests. Will be removed before final code
-    //_________________________________________________________________________________________________________________________________________
-
-    public static void main(String[] args)
-    {
-        try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
-            // SELECT-Befehl ausführen
-
-            try (Statement stmt = conn.createStatement()) {
-                stmt.executeUpdate("DELETE FROM products");
-                stmt.executeUpdate("DELETE FROM shopping_list");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        create_shopping_list("Migros einkauf");
-        System.out.println(get_list_of_shopping_list());
-        System.out.println(getProducts_of_shopping_list(1));
-        System.out.println(create_product("Milllch", 1, 5));
-        System.out.println(getProducts_of_shopping_list(1));
-        System.out.println(update_product("Millch", 1, 1000));
-        System.out.println(getProducts_of_shopping_list(1));
-        System.out.println(create_product("Kuh", 1, 5));
-        System.out.println(delete_product(1));
-        System.out.println(getProducts_of_shopping_list(1));
-        System.out.println(delete_shopping_list(1));
-
-    }
-
 }
