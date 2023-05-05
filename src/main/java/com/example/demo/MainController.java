@@ -1,11 +1,9 @@
 package com.example.demo;
+
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
-import static com.example.demo.sql_functions.getProducts_of_shopping_list;
-import static com.example.demo.sql_functions.get_list_of_shopping_list;
+import static com.example.demo.sql_functions.*;
 
 @RestController
 public class MainController {
@@ -37,24 +35,24 @@ public class MainController {
 	 *	Here you can add a List, and It will return the List ID.
 	 */
 	@PostMapping("/products")
-	public String addList() {
-		return "Hello GET";
+	public String addList(@RequestBody String name) {
+		return create_shopping_list(name);
 	}
 
 	/**
 	 *	Here you can delete a List with the list's ID.
 	 */
 	@DeleteMapping("/proucts")
-	public String deleteList() {
-		return "Hello GET";
+	public String deleteList(@RequestParam(value = "id") String id) {
+		return delete_shopping_list(Integer.valueOf(id));
 	}
 
 	/**
 	 *	Here you can add a product to a List.
 	 */
 	@PostMapping("/product")
-	public String addProduct() {
-		return "Hello ADD";
+	public String addProduct(@RequestBody ProductForm productForm) {
+		return create_product(productForm.getProductname(), productForm.getProductListId(), productForm.getAmount());
 	}
 	/**
 	 *	Here you can edit a product from a List.
