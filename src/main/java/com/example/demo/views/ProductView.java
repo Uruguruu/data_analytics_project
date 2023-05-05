@@ -10,7 +10,7 @@ import com.vaadin.flow.router.Route;
 import java.util.ArrayList;
 import java.util.List;
 
-@Route("product")
+@Route("products")
 public class ProductView extends Div {
 
     public ProductView() {
