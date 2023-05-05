@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.SpringApplication;
 
@@ -73,21 +74,27 @@ public class sql_functions {
     // all function for the products
     //_________________________________________________________________________________________________________________________________________
     public static String getProducts_of_shopping_list(Integer id_list) {
-        JSONObject results = new JSONObject();
+        System.out.println(id_list);
+        JSONArray results = new JSONArray();
         // Verbindung zur SQLite-Datenbank herstellen
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:db.db")) {
             // SELECT-Befehl ausführen
-
-            try (Statement stmt = conn.createStatement()) {
-                ResultSet rs = stmt.executeQuery("SELECT * FROM products");
+            String sql = "SELECT * FROM products WHERE FK_shopping_list = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setInt(1, id_list);
+                ResultSet rs =  pstmt.executeQuery();
                 while (rs.next()) {
-                    results.put("ID", rs.getInt("ID"));
-                    results.put("name", rs.getString("Name"));
-                    results.put("Anzahl", rs.getString("Anzahl"));
+                    JSONObject row = new JSONObject();
+                    row.put("ID", rs.getInt("ID"));
+                    row.put("name", rs.getString("Name"));
+                    row.put("Anzahl", rs.getString("Anzahl"));
+                    results.put(row);
                 }
             }
         } catch (SQLException e) {
+            System.out.println(id_list);
         }
+        System.out.println(results.toString());
         return results.toString();
     }
     public static String create_product(String name, Integer ID_of_shopping_list, Integer Amount) {
