@@ -43,8 +43,8 @@ public class MainController {
 	 *	Here you can delete a List with the list's ID.
 	 */
 	@DeleteMapping("/proucts")
-	public String deleteList(@RequestParam(value = "id") String id) {
-		return delete_shopping_list(Integer.valueOf(id));
+	public String deleteList(@RequestBody Integer id) {
+		return delete_shopping_list(id);
 	}
 
 	/**
@@ -65,8 +65,7 @@ public class MainController {
 	 *	Here you can delete a product from a List.
 	 */
 	@DeleteMapping("/product")
-	public String deleteProduct(@RequestParam(value = "id", required = true) String id) {
-		return delete_product(Integer.parseInt(id));
+	public String deleteProduct(@RequestBody Integer id) {
+		return delete_product(id);
 	}
-
 }
